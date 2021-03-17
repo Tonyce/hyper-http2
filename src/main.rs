@@ -60,7 +60,7 @@ async fn handle(req: Request<Body>) -> Result<Response<Body>, Infallible> {
 async fn main() {
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
     let service = make_service_fn(|_conn| async {
-        Ok::<_, Infallible>(service_fn(|req: Request<Body>| async move {
+        Ok::<_, hyper::Error>(service_fn(|req: Request<Body>| async move {
             if req.version() == Version::HTTP_2 {
                 let (_parts, body) = req.into_parts();
                 // 获取 body
